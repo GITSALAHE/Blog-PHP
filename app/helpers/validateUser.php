@@ -15,10 +15,27 @@ function validateUser($user){
         if($user['passwordConf'] !== $user['password']){
         array_push($errors, 'password do not match');
         }
-
-        $existingUser  = selectOne('users', ['email' => $user['email']]);
-        if(isset($existingUser)){
-            array_push($errors, 'EMAIL already exists');
+        //Validate USER 
+        //checking if there is an exist USER 
+        // $existingUser  = selectOne('users', ['email' => $user['email']]);
+        // $existingMail = selectOne('users', ['username' => $user['username']]);
+        // // LET S BLOCK THE USER
+        // if($existingUser){
+        //     array_push($errors, 'EMAIL already exists');
+        // }
+        // if ($existingMail) {
+        //     array_push($errors, 'username already exists');
+        // }
+        //checking existing email
+        $existingMail  = selectOne('users', ['email' => $user['email']]);
+        // LET S BLOCK THE post
+        if($existingMail){
+            if($user['update-user'] && $existingMail['id'] != $user['id']){
+                array_push($errors, 'Email already exists');
+            }
+           if(isset($user['create-admin'])){
+                array_push($errors, 'Email already exists');
+           }
         }
         return $errors;
         //end verification

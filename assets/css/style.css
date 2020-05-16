@@ -13,9 +13,7 @@ a {
   color: inherit;
 }
 
-a:hover, a:active {
-  color: #008489;
-}
+
 
 .logo-text, h1, h2, h3, h4, h5, h6 {
   font-family: 'Candal', sans-serif;

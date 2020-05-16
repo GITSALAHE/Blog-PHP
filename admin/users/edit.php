@@ -42,13 +42,12 @@ adminOnly();
         <a href="index.php" class="btn btn-sm">Manage Users</a>
       </div>
       <div class="">
-        <h2 style="text-align: center;">Create User</h2>
+        <h2 style="text-align: center;">Edit admins</h2>
         <?php include(ROOT_PATH . "/app/helpers/formError.php") ?>
 
-        <form action="create.php" method="post">
-          <!-- <div class="msg error">
-            <li>Username required</li>
-          </div> -->
+        <form action="edit.php" method="post">
+        <input type="hidden" name="id" value="<?php echo $id; ?>" >
+
           <div class="input-group">
             <label>Username</label>
             <input type="text" name="username" value="<?php echo $username ?>" class="text-input">
@@ -79,7 +78,7 @@ adminOnly();
         
           </div>
           <div class="input-group">
-            <button type="submit" name="create-admin" class="btn">Save User</button>
+            <button type="submit" name="update-user" class="btn">edit admin</button>
           </div>
         </form>
 

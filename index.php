@@ -1,5 +1,21 @@
 <?php include("path.php");
-  include(ROOT_PATH . "/app/database/db.php")
+include(ROOT_PATH . "/app/controllers/topics.php");
+
+$postTitle = 'Recent Posts';
+$posts = array();
+
+if(isset($_GET['t_id'])){
+  $posts = getPostByTopicId($_GET['t_id']);
+  $postTitle = "Searched for Posts under '"  . $_GET['name'] . "'";
+}
+
+else if (isset($_POST['search-term'])) {
+  $postTitle = "Searched Posts for '"  . $_POST['search-term'] . "'";
+  $posts = searchPost($_POST['search-term']);
+}
+else{
+  $posts = getPublishedPosts();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,111 +43,53 @@
       <h1 class="slider-title">Trending Posts</h1>
       <i class="fa fa-chevron-right next"></i>
       <i class="fa fa-chevron-left prev"></i>
+
       <div class="posts-wrapper">
+       
+        
+        <?php foreach($posts as $post): ?>
         <div class="post">
           <div class="inner-post">
-            <img src="assets/images/image_7.png" alt="" style="height: 200px; width: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px;">
+            <img src="<?php echo BASE_URL . '/assets/images/' . $post['image'] ?>" alt="" style="height: 200px; width: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px;">
             <div class="post-info">
-              <h4><a href="single.php">One day your life will flash before your eyes</a></h3>
-                <div>
-                  <i class="fa fa-user-o"></i> GitSalah 
-                  &nbsp;
-                  <i class="fa fa-calendar"></i> Mai 12, 2020
-                </div>
-            </div>
-          </div>
-        </div>
-        <div class="post">
-          <div class="inner-post">
-            <img src="assets/images/image_6.png" alt="" style="height: 200px; width: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px;">
-            <div class="post-info">
-              <h4><a href="single.php">One day your life will flash before your eyes</a></h3>
-                <div>
-                  <i class="fa fa-user-o"></i> GitSalah 
-                  &nbsp;
-                  <i class="fa fa-calendar"></i> Mai 12, 2020
-                </div>
-            </div>
-          </div>
-        </div>
-        <div class="post">
-          <div class="inner-post">
-            <img src="assets/images/image_5.png" alt="" style="height: 200px; width: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px;">
-            <div class="post-info">
-              <h4><a href="single.php">One day your life will flash before your eyes</a></h3>
-                <div>
-                  <i class="fa fa-user-o"></i> GitSalah 
-                  &nbsp;
-                  <i class="fa fa-calendar"></i> Mai 12, 2020
-                </div>
-            </div>
-          </div>
-        </div>
-        <div class="post">
-          <div class="inner-post">
-            <img src="assets/images/image_4.png" alt="" style="height: 200px; width: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px;">
-            <div class="post-info">
-              <h4><a href="single.php">One day your life will flash before your eyes</a></h4>
+              <h4><a href="single.php?id=<?php echo $post['id']; ?>"><?php echo html_entity_decode($post['title']) ; ?></a></h4>
               <div>
-                <i class="fa fa-user-o"></i> GitSalah 
+                <i class="fa fa-user-o"> <?php echo $post['username']; ?>   </i> 
                 &nbsp;
-                <i class="fa fa-calendar"></i> Mai 12, 2020
+                <i class="fa fa-calendar"><?php echo date('F j, Y', strtotime($post['created_at'])); ?></i> 
               </div>
             </div>
           </div>
         </div>
+        <?php endforeach; ?>   
+
+        
       </div>
     </div>
     <!-- // Posts Slider -->
     <!-- content -->
     <div class="content clearfix">
       <div class="page-content">
-        <h1 class="recent-posts-title">Recent Posts</h1>
+        <h1 class="recent-posts-title"><?php echo $postTitle ?></h1>
+
+        <?php foreach($posts as $post): ?>
         <div class="post clearfix">
-          <img src="assets/images/image_1.png" class="post-image" alt="">
+          <img src="<?php echo BASE_URL . '/assets/images/' . $post['image'] ?>" class="post-image" alt="">
           <div class="post-content">
-            <h2 class="post-title"><a href="#">The strongest and sweetest songs yet remain to be sung</a></h2>
+            <h2 class="post-title"><a href="single.php?id=<?php echo $post['id']; ?>"><?php echo $post['title']; ?></a></h2>
             <div class="post-info">
-              <i class="fa fa-user-o"></i> GitSalah 
+              <i class="fa fa-user-o"> <?php echo $post['username']; ?></i>  
               &nbsp;
-              <i class="fa fa-calendar"></i> Mai 12, 2020
+              <i class="fa fa-calendar"><?php echo date('F j, Y', strtotime($post['created_at'])); ?></i> 
             </div>
-            <p class="post-body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus expedita tempora
-              qui sunt! Ipsum nihil unde obcaecati.
+            <p class="post-body"> <?php echo html_entity_decode(substr($post['body'], 0, 200) . '...'); ?>
             </p>
-            <a href="#" class="read-more">Read More</a>
+            <a href="single.php?id=<?php echo $post['id']; ?>" class="read-more">Read More</a>
           </div>
         </div>
-        <div class="post clearfix">
-          <img src="assets/images/image_2.png" class="post-image" alt="">
-          <div class="post-content">
-            <h2 class="post-title"><a href="#">That love is all there is, is all we know of love</h2></a>
-            <div class="post-info">
-              <i class="fa fa-user-o"></i> GitSalah 
-              &nbsp;
-              <i class="fa fa-calendar"></i> Mai 12, 2020
-            </div>
-            <p class="post-body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus expedita tempora
-              qui sunt! Ipsum nihil unde obcaecati.
-            </p>
-            <a href="#" class="read-more">Read More</a>
-          </div>
-        </div>
-        <div class="post clearfix">
-          <img src="assets/images/image_3.png" class="post-image" alt="">
-          <div class="post-content">
-            <h2 class="post-title"><a href="#">Do anything, but let it produce joy</a></h2>
-            <div class="post-info">
-              <i class="fa fa-user-o"></i> GitSalah 
-              &nbsp;
-              <i class="fa fa-calendar"></i> Mai 12, 2020
-            </div>
-            <p class="post-body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus expedita tempora
-              qui sunt! Ipsum nihil unde obcaecati.
-            </p>
-            <a href="#" class="read-more">Read More</a>
-          </div>
-        </div>
+        <?php endforeach; ?>   
+  
+        
       </div>
       <div class="sidebar">
         <!-- Search -->
@@ -145,30 +103,12 @@
         <div class="section topics">
           <h2>Topics</h2>
           <ul>
-            <a href="#">
-              <li>Poems</li>
+
+          <?php foreach($topics as $key => $topic): ?>
+            <a href="<?php echo BASE_URL . '/index.php?t_id=' . $topic['id'] . '&name=' . $topic['name']?>">
+            <?php echo $topic['name']; ?> 
             </a>
-            <a href="#">
-              <li>Quotes</li>
-            </a>
-            <a href="#">
-              <li>Fiction</li>
-            </a>
-            <a href="#">
-              <li>Biography</li>
-            </a>
-            <a href="#">
-              <li>Motivation</li>
-            </a>
-            <a href="#">
-              <li>Inspiration</li>
-            </a>
-            <a href="#">
-              <li>Life Lessons</li>
-            </a>
-            <a href="#">
-              <li>Self Development</li>
-            </a>
+            <?php endforeach; ?>
           </ul>
         </div>
         <!-- // topics -->

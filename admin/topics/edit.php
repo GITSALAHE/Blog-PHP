@@ -1,4 +1,8 @@
 <?php include("../../path.php") ?>
+<?php include(ROOT_PATH . "/app/controllers/topics.php"); 
+adminOnly();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,18 +43,20 @@
       </div>
       <div class="content">
         <h2 class="page-title" style="text-align: center;">Edit Topic</h2>
+        <?php include(ROOT_PATH . "/app/helpers/formError.php"); ?>
 
-        <form action="create.php" method="post">
+        <form action="edit.php" method="post">
+        <input type="hidden" name="id" value="<?php echo $id; ?>">
           <div class="input-group">
             <label>Name</label>
-            <input type="text" name="name" class="text-input">
+            <input type="text" name="name" value="<?php echo $name; ?>" class="text-input">
           </div>
           <div class="input-group">
             <label>Description</label>
-            <textarea  name="description" id="body"></textarea>
+            <textarea  name="description" id="body"><?php echo $description; ?></textarea>
           </div>
           <div class="input-group">
-            <button type="submit" name="save-topic" class="btn" >Update Topic</button>
+            <button type="submit" name="update-topic" class="btn" >Update Topic</button>
           </div>
         </form>
 

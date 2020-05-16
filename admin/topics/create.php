@@ -1,5 +1,8 @@
 <?php include("../../path.php") ?>
-<?php include(ROOT_PATH . "/app/controllers/topics.php") ?>
+<?php include(ROOT_PATH . "/app/controllers/topics.php");
+adminOnly();
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -41,14 +44,16 @@
       </div>
       <div class="content">
         <h2 class="page-title" style="text-align: center;">Create Topic</h2>
+        <?php include(ROOT_PATH . "/app/helpers/formError.php"); ?>
+
         <form action="create.php" method="post">
           <div class="input-group">
             <label>Name</label>
-            <input type="text" name="name" class="text-input">
+            <input type="text" name="name" class="text-input" value="<?php echo $name; ?>">
           </div>
           <div class="input-group">
             <label>Description</label>
-            <textarea  name="description" id="body"></textarea>
+            <textarea  name="description" id="body"><?php echo $description; ?></textarea>
           </div>
           <div class="input-group">
             <button type="submit" name="add-topic" class="btn" >Add Topic</button>

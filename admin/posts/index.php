@@ -1,4 +1,8 @@
 <?php include("../../path.php") ?>
+<?php include(ROOT_PATH . "/app/controllers/posts.php");
+adminOnly();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,80 +43,44 @@
       </div>
       <div class="">
         <h2 style="text-align: center;">Manage Posts</h2>
+        <?php include(ROOT_PATH . "/app/includes/messages.php") ?>
         <table>
           <thead>
             <th>N</th>
             <th>Title</th>
             <th>Author</th>
-            <th colspan="3">Action</th>
+            <th colspan="2">Action</th>
+            <th>Change situation</th>
           </thead>
           <tbody>
+
+          <?php foreach($posts as $key => $post): ?>
             <tr class="rec">
-              <td>1</td>
+              <td><?php echo $key + 1; ?></td>
               <td>
-                <a href="#">A replacement for new year resolutions - a 12 months challenge</a>
+                <a><?php echo $post['title']; ?></a>
               </td>
               <td>GitSalah</td>
               <td>
-                <a href="edit.php" class="edit">
+                <a href="edit.php?id=<?php echo $post['id'];?>" class="edit">
                   Edit
                 </a>
               </td>
               <td>
-                <a href="#" class="delete">
+                <a href="edit.php?delete_id=<?php echo $post['id'];?>" class="delete">
                   Delete
                 </a>
               </td>
-              <td>
-                <a href="#" class="publish">
-                  Publish
-                </a>
-              </td>
+              <?php if ($post['published']): ?>
+              <td><a href="edit.php?published=0&p_id=<?php echo $post['id']; ?>" class="unpublish">Unpublish</a></td>
+              <?php else: ?>
+                <td><a href="edit.php?published=1&p_id=<?php echo $post['id']; ?>" class="publish">publish</a></td>
+              <?php endif; ?>
             </tr>
-            <tr class="rec">
-              <td>2</td>
-              <td>
-                <a href="#">Why life is beautiful</a>
-              </td>
-              <td>GitSalah</td>
-              <td>
-                <a href="edit.php" class="edit">
-                  Edit
-                </a>
-              </td>
-              <td>
-                <a href="#" class="delete">
-                  Delete
-                </a>
-              </td>
-              <td>
-                <a href="#" class="publish">
-                  Publish
-                </a>
-              </td>
-            </tr>
-            <tr class="rec">
-              <td>3</td>
-              <td>
-                <a href="#">Interesting facts about the history of the world</a>
-              </td>
-              <td>GitSalah</td>
-              <td>
-                <a href="edit.php" class="edit">
-                  Edit
-                </a>
-              </td>
-              <td>
-                <a href="#" class="delete">
-                  Delete
-                </a>
-              </td>
-              <td>
-                <a href="#" class="publish">
-                  Publish
-                </a>
-              </td>
-            </tr>
+          <?php endforeach; ?>
+            
+          
+  
           </tbody>
         </table>
 

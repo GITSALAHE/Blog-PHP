@@ -3,14 +3,12 @@
       <div class="footer-section about">
         <h1 class="logo-text">GitSalah<span>blog</span></h1>
         <p>
-          GitSalahblog is a fictional blog conceived for the purpose
-          of a tutorial on YouTube. However, GitSalah has a blog called pieceofadvice.org
-          where he writes truly inspiring stuff.
+          GitSalahblog is a blog created for testing technologie PHP Yeah and We have learn to much !
         </p>
         <!-- <br> -->
         <div class="contact">
-          <i class="fa fa-phone"> &nbsp; 123-456-789</i>
-          <i class="fa fa-envelope"> &nbsp; info@mywebsite.com</i>
+          <i class="fa fa-phone"> &nbsp; +212 649118803</i>
+          <i class="fa fa-envelope"> &nbsp; salah.bouanba2@gmail.com</i>
         </div>
         <div class="social">
           <a href="#"><i class="fa fa-facebook"></i></a>
