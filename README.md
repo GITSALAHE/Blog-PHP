@@ -5,5 +5,5 @@ a simple blog
 install wamp or xammp to launch server
 import sql script to your database
 
-#Live result
+# Live result
 Check result : https://gitsalahblog.herokuapp.com/
